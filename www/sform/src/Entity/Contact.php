@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\ContactRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ContactRepository::class)]
 class Contact
@@ -15,12 +16,34 @@ class Contact
     private ?int $id = null;
 
     #[ORM\Column(length: 100)]
+    #[Assert\NotBlank(
+        message: 'A név mező értéke nem lehet üres!'
+    )]
+    #[Assert\Length(
+        max: 100,
+        maxMessage: 'A név mező érétéke nem lehet hosszabb, mint {{ limit }} characters',
+    )]
     private ?string $name = null;
 
     #[ORM\Column(length: 50)]
+    #[Assert\NotBlank(
+        message: 'Az email mező értéke nem lehet üres!'
+    )]
+    #[Assert\Regex(
+        pattern: '/^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/',
+        match: true,
+        message: 'Invalid hibás email cím formátum!',
+    )]
+    #[Assert\Length(
+        max: 50,
+        maxMessage: 'Az email mező érétéke nem lehet hosszabb, mint {{ limit }} characters',
+    )]
     private ?string $emailAddress = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Assert\NotBlank(
+        message: 'Az üzenet mező értéke nem lehet üres!'
+    )]
     private ?string $message = null;
 
     public function getId(): ?int
