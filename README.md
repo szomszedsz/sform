@@ -8,9 +8,12 @@
   `$ cd ./html/sform`
 4. Run composer install
   `$ composer install`
-5. Run npm install
+5. Create database and run migration 
+  `$ php bin/console help doctrine:database:create`  
+  `$ php bin/console doctrine:migrations:migrate`  
+6. Run npm install
   `$ npm install`
-6. Build in dev mode
+7. Build in dev mode
   `$ npm run dev --watch`   
-7. Open in browser
+8. Open in browser
    `localhost:8080`
