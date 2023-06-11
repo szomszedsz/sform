@@ -37,7 +37,6 @@ class ContactController extends AbstractController
         
                 $errorsString = (string) $errors;
 
-                //return new Response($errorsString);
                 return $this->renderForm('contact/new.html.twig', [
                     'contact' => $contact,
                     'form' => $form,
